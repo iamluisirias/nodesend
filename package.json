@@ -10,8 +10,10 @@
   "author": "Luis Irias",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-validator": "^6.10.0",
     "mongoose": "^5.12.5"
   },
   "devDependencies": {
