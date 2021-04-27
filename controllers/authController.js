@@ -39,7 +39,7 @@ exports.iniciarSesion = async ( req, res ) => {
             email: usuario.email             //Generando un jwt a partir del email. 
                      
         }, process.env.SECRETA, {           //Se firma con la palabra secreta necesaria para "decodificarla"
-            expiresIn: '8h'                 //Tiene una duración de 8 horas hasta que expire.
+            expiresIn: '24h'                 //Tiene una duración de 8 horas hasta que expire.
         });           
         
         res.json({ token });    
@@ -51,21 +51,5 @@ exports.iniciarSesion = async ( req, res ) => {
 }
 
 exports.obtenerUsuarioAutenticado = ( req, res, next ) => {
-   const authHeader = req.get('Authorization');
-
-    if (authHeader) {
-       //Se obtiene el JWT
-        const token = authHeader.split(' ')[1];      //Se genera un arreglo a partir del header de authorization agarrando la parte despues del espacio, osea el token en si, sin el 'Bearer'.
-       
-        try {
-            //Se comprueba el JWT
-            const usuario = jwt.verify( token, process.env.SECRETA );
-            res.json({ usuario })
-
-        } catch (error) {
-            console.log(error, 'JWT no válido');
-        }
-    } 
-
-   console.log('No hay header');
+   res.json({ usuario: req.usuario });
 };
