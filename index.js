@@ -1,11 +1,20 @@
 const express = require('express');
 const conectarDB = require('./config/db');
+const cors = require('cors');
 
 //Creando el servidor
 const app = express();
 
 //Conectando a la base de datos.
 conectarDB();
+
+//Configurando cors
+const corsOptions = {
+    origin: process.env.FRONTEND_URL     //Solo aceptara peticiones de la url de frontEnd definida en las variables de entorno.
+} 
+
+//Habilitando CORS
+app.use( cors(corsOptions) );          //Habilita poderhacer peticiones desde otro dominio distinto al del server.
 
 console.log('Inicializando NodeSend');
 
