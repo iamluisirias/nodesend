@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' })
 
 exports.iniciarSesion = async ( req, res ) => {
-    console.log('Intentando Iniciar Sesion');
 
     //Haciendo las comprobaciones de que los campos sean validos.
     const errores = validationResult(req);
@@ -39,7 +38,7 @@ exports.iniciarSesion = async ( req, res ) => {
             email: usuario.email             //Generando un jwt a partir del email. 
                      
         }, process.env.SECRETA, {           //Se firma con la palabra secreta necesaria para "decodificarla"
-            expiresIn: '24h'                 //Tiene una duración de 8 horas hasta que expire.
+            expiresIn: '8h'                 //Tiene una duración de 8 horas hasta que expire.
         });           
         
         res.json({ token });    
