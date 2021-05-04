@@ -18,6 +18,12 @@ router.get('/',
 )
 
 router.get('/:url',
+    enlaceController.comprobarPassword,
+    enlaceController.obtenerEnlace
+);
+
+router.post('/:url',
+    enlaceController.verificarPassword,
     enlaceController.obtenerEnlace
 );
 

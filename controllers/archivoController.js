@@ -57,7 +57,8 @@ exports.descargarArchivo = async ( req, res, next ) => {
     const DireccionArchivo = __dirname + `/../uploads/${archivo}`;
 
     //A descargar el archivo mi rey.
-    res.download(DireccionArchivo);
+    //Direccion del archivo, nombre original del archivo.
+    res.download(DireccionArchivo, enlace.nombre_original);
 
     //--------------------Ahora se elimina el archivo y la entrada de la base de datos.------------------------
     //Si las descargas son iguales a 1, se borra la entrada y el archivo.
