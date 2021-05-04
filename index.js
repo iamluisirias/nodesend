@@ -24,6 +24,9 @@ const port = process.env.PORT || 4000;
 //Habilitando el poder leer el contenido de una request.
 app.use( express.json() );
 
+//Habilitando la carpeta publica donde estan los archivos estáticos.
+app.use( express.static('uploads') );
+
 //Definiendo las rutas de la app.
 app.use('/api/usuarios', require('./routes/usuarios'));  //Usamos la ruta /api/usuarios para cualquer accion que este dentro del archivo usuarios en la carpeta de rutas.
 app.use('/api/auth', require('./routes/auth'));     //Para que un usuario inicie sesion el endpoint es la autenticacion.

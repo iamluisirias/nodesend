@@ -7,8 +7,8 @@ router.post('/',
     archivoController.subirArchivo
 );
 
-router.delete('/:id',
-    auth,
+router.get('/:archivo',
+    archivoController.descargarArchivo,
     archivoController.eliminarArchivo
 )
 

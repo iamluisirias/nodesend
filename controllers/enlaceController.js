@@ -11,13 +11,13 @@ exports.crearEnlace = async ( req, res, next ) => {
         return res.status(400).json({ errores: errores.array() })
     }
 
-    //Destructurind de la petición.
-    const { nombre_original } = req.body;
+    //Destructuring de la petición.
+    const { nombre_original, nombre } = req.body;
 
     //Creando un objeto enlace con todos los atributos definidos en el schema.
     const enlace = new Enlace();            
     enlace.url = shortid.generate();        //Generando una url a partir de un id, amigable para una url.
-    enlace.nombre = shortid.generate();     //Para guardar el archivo en la base de datos con otro nombre que no pueda reescribirse por otro con el mismo nombre.
+    enlace.nombre = nombre;   
     enlace.nombre_original = nombre_original;
 
     //Si el usuario está autenticado, tendrá más opciones.
@@ -67,26 +67,16 @@ exports.obtenerEnlace = async ( req, res, next ) => {
     //Si el enlace existe
     res.json({ archivo: enlace.nombre });
 
-    //Si las descargas son iguales a 1, se borra la entrada y el archivo.
+    //Vamos al siguiente middleware
+    next();
+}
 
-    const { descargas, nombre } = enlace;
-
-    if (descargas === 1) {
-        console.log('Si solo 1');
-
-        //Eliminar el archivo.
-        req.archivo = nombre;
-
-        //Eliminar la entrada en la base de datos.
-        await Enlace.findOneAndRemove( req.params.url );
-
-        return next();      //Esto lo manda al siguiente middleware (eliminarEnlace).
-
-    } else {
-        enlace.descargas--;
-        await enlace.save();
-        console.log('Aun hay descargas ', descargas);
+//Obtiene un listado de todos los enlaces.
+exports.retornarEnlaces = async ( req, res, next ) => {
+    try {
+        const enlaces = await Enlace.find({}).select('url -_id');
+        res.json({enlaces})
+    } catch (error) {
+        console.log(error);
     }
-
-    //Si las descargas son > 1, se resta 1.
 }
