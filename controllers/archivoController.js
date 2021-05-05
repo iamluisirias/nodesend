@@ -7,8 +7,6 @@ const Enlace = require('../models/Enlace');
 
 exports.subirArchivo = async ( req, res, next ) => {
 
-    console.log(req.usuario);
-
     //Objeto de configuracion de multer
     const configMulter = {
         limits: { fileSize: req.usuario ? (10485760) : (1048576) },                 //Limites -> Tamano de archivo -> 1MB si no está registrado y si esta registrado 10MB
