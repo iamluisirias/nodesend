@@ -72,7 +72,7 @@ exports.descargarArchivo = async ( req, res, next ) => {
         req.archivo = nombre;
   
         //Eliminar la entrada en la base de datos.
-        await Enlace.findOneAndRemove( enlace.id );
+        await Enlace.findOneAndRemove( enlace._id );
   
         return next();      //Esto lo manda al siguiente middleware (eliminarArchivo).
   
