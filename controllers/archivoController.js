@@ -5,13 +5,13 @@ const fs = require('fs');
 
 const Enlace = require('../models/Enlace');
 
-
-
 exports.subirArchivo = async ( req, res, next ) => {
+
+    console.log(req.usuario);
 
     //Objeto de configuracion de multer
     const configMulter = {
-        limits: { fileSize: req.usuario ? (10(1024 * 1024)) : (1024 * 1024) },                 //Limites -> Tamano de archivo -> 1MB si no está registrado y si esta registrado 10MB
+        limits: { fileSize: req.usuario ? (10485760) : (1048576) },                 //Limites -> Tamano de archivo -> 1MB si no está registrado y si esta registrado 10MB
         storage: fileStorage = multer.diskStorage({     //Como será que se almacene el archivo
             destination: ( req, file, cb ) => {         //Donde se guarda
                 cb( null, __dirname+'/../uploads' )
@@ -23,7 +23,7 @@ exports.subirArchivo = async ( req, res, next ) => {
         })
     }
 
-const upload = multer(configMulter).single('archivo');
+    const upload = multer(configMulter).single('archivo');
 
     upload( req, res, async(error) => {
         if (!error) {
@@ -72,7 +72,7 @@ exports.descargarArchivo = async ( req, res, next ) => {
         req.archivo = nombre;
   
         //Eliminar la entrada en la base de datos.
-        await Enlace.findOneAndRemove( enlace._id );
+        await Enlace.findOneAndRemove( enlace.id );
   
         return next();      //Esto lo manda al siguiente middleware (eliminarArchivo).
   

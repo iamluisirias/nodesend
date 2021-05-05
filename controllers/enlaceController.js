@@ -67,11 +67,11 @@ exports.comprobarPassword = async ( req, res, next ) => {
     //Si existe un password en el enlace creado en la base de datos.
     if (enlace.password) {
         res.json({ password: true, enlace: enlace.url });
-        next();
+        return next();
     }
 
     //Lo manda al siguiente middleware ( obtenerEnlace );
-    next();
+    return next();
 }
 
 //Verifica si la contraseña para poder descargar el archivo es válida.
@@ -112,7 +112,7 @@ exports.obtenerEnlace = async ( req, res, next ) => {
     res.json({ archivo: enlace.nombre, password: false });
 
     //Vamos al siguiente middleware
-    next();
+    return next();
 }
 
 //Obtiene un listado de todos los enlaces.

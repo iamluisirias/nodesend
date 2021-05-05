@@ -20,5 +20,5 @@ module.exports = ( req, res, next ) => {
         }
     } 
 
-    return next()       //Una vez que termine este middleware, pasa al siguiente.
+    return next();       //Una vez que termine este middleware, pasa al siguiente.
 }
